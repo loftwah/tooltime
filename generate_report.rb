@@ -7,7 +7,7 @@ require 'time'
 RECIPIENT_EMAIL = ENV['RECIPIENT_EMAIL']
 SENDER_EMAIL    = ENV['SENDER_EMAIL']
 RESEND_API_KEY  = ENV['RESEND_API_KEY']
-DRY_RUN         = ENV['DRY_RUN'] == 'true' # <--- Only one "no-send" toggle now
+DRY_RUN         = ENV['DRY_RUN'] == 'true'
 
 # Base URL for product-specific API queries
 BASE_URL        = 'https://endoflife.date/api/'
