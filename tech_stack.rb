@@ -7,22 +7,26 @@ module TechStackConfig
         'python' => { 
           source: 'endoflife',
           github: 'python/cpython',
-          package_manager: 'pip'
+          package_manager: 'pip',
+          track_versions: ['3.12', 'latest']  # Track Python 3.12 and latest
         },
         'ruby' => { 
           source: 'endoflife',
           github: 'ruby/ruby',
-          package_manager: 'rubygems'
+          package_manager: 'rubygems',
+          track_versions: ['3.3', 'latest']  # Track Ruby 3.3 and latest
         },
         'nodejs' => { 
           source: 'endoflife',
           github: 'nodejs/node',
-          package_manager: 'npm'
+          package_manager: 'npm',
+          track_versions: ['20', 'latest']  # Track Node.js 20 and latest
         },
         'go' => { 
           source: 'endoflife',
           github: 'golang/go',
-          package_manager: 'go'
+          package_manager: 'go',
+          track_versions: ['1.19', 'latest']  # Track Go 1.19 and latest
         },
         'typescript' => {
           github: 'microsoft/TypeScript',
@@ -41,11 +45,13 @@ module TechStackConfig
       'databases' => {
         'postgresql' => { 
           source: 'endoflife',
-          github: 'postgres/postgres'
+          github: 'postgres/postgres',
+          track_versions: ['16', 'latest']  # Track PostgreSQL 16 and latest
         },
         'redis' => { 
           source: 'endoflife',
-          github: 'redis/redis'
+          github: 'redis/redis',
+          track_versions: ['6', 'latest']  # Track Redis 6 and latest
         },
         'sqlite' => {
           github: 'sqlite/sqlite',
@@ -179,6 +185,7 @@ module TechStackConfig
       'ruby' => 'Ruby follows a yearly release cycle with security maintenance for ~3.75 years.',
       'nodejs' => 'Node.js even-numbered versions are LTS. LTS versions receive active support for 12 months and maintenance for 18 months.',
       'postgresql' => 'PostgreSQL versions are supported for 5 years after release.',
+      'redis' => 'Redis versions are supported for 3 years after release.',
       'ubuntu' => 'Ubuntu LTS releases are supported for 5 years, while regular releases are supported for 9 months.',
       'rails' => 'Rails follows a 2.5 year support cycle for security fixes and severe bug fixes.'
     }
