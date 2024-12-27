@@ -11,17 +11,12 @@ Welcome to the **Tool Time End-of-Life Reporter**, a simple Ruby script for fetc
    - Your EOL report comes out looking _magically enhanced_, like adding a supercharger to your rundown pickup.
    - Each product’s versions, EOL status, and whether it’s an LTS (Long-Term Support) release is cleanly presented in its own table.
 
-2. **Preview Mode**
-
-   - Not ready to fire off the email? Set `PREVIEW_ONLY='true'` in your `.env` (or environment) to see the final HTML printed in your console.
-   - Perfect for that quick _“Measure twice, cut once”_ check before sending.
-
-3. **Dry-Run Mode**
+2. **Dry-Run Mode**
 
    - If `DRY_RUN='true'`, the script prints the HTML to the console but reminds you that it’s a dry-run.
    - Great for the days you want to _“opt out”_ of emailing your beloved teammates.
 
-4. **Simple to Deploy**
+3. **Simple to Deploy**
    - Just load the environment variables, install dependencies with `bundle install`, and run `ruby main.rb`.
    - Even Al Borland couldn’t find fault with how easy it is!
 
@@ -54,9 +49,8 @@ Welcome to the **Tool Time End-of-Life Reporter**, a simple Ruby script for fetc
 
    - By default, it’ll send the report if valid credentials are found.
 
-5. **Preview or Dry-Run**
+5. **Dry-Run**
 
-   - **Preview**: `PREVIEW_ONLY='true' ruby main.rb`
    - **Dry-Run**: `DRY_RUN='true' ruby main.rb`
 
 ## Environment Variables
