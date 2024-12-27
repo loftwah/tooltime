@@ -44,8 +44,6 @@ class LifecycleTracker
         end
       end
     end
-    
-    @trending_data = DataFetcher.fetch_github_trending(@github_token)
   end
 
   def analyze_lifecycle_status
@@ -96,7 +94,7 @@ class LifecycleTracker
   def output_results(warnings, upcoming_releases)
     if @format == 'html'
       content = Display.generate_html(@tech_stack, @lifecycle_data, @npm_data, @github_data, 
-                                    @trending_data, warnings, upcoming_releases)
+                                    warnings, upcoming_releases)
       html = HTMLFormatter.wrap_content(content)
       
       if @output_file
@@ -107,7 +105,7 @@ class LifecycleTracker
       end
     else
       Display.text_output(@tech_stack, @lifecycle_data, @npm_data, @github_data,
-                         @trending_data, warnings, upcoming_releases)
+                         warnings, upcoming_releases)
     end
   end
 end

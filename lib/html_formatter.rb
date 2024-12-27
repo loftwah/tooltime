@@ -16,9 +16,6 @@ module HTMLFormatter
             .tool { background: #f8fafc; padding: 15px; margin: 10px 0; border-radius: 8px; }
             .version { color: #059669; font-weight: bold; }
             .eol-warning { color: #dc2626; }
-            .trending { background: #dbeafe; padding: 10px; margin-top: 5px; border-radius: 4px; }
-            .repo { margin: 10px 0; padding: 10px; background: white; border-radius: 4px; }
-            .stats { color: #6b7280; font-size: 0.9em; }
           </style>
         </head>
         <body>
@@ -51,21 +48,6 @@ module HTMLFormatter
       return 'Supported' if eol == true
       return 'Ended' if eol == false
       eol
-    end
-
-    def format_trending_repo(repo)
-      <<~HTML
-        <div class="repo">
-          <h4><a href="#{repo['html_url']}">#{repo['full_name']}</a></h4>
-          <p>#{repo['description']}</p>
-          <p class="stats">
-            ★ #{repo['stargazers_count']} | 
-            👁️ #{repo['watchers_count']} | 
-            🍴 #{repo['forks_count']} | 
-            Created: #{Date.parse(repo['created_at']).strftime('%Y-%m-%d')}
-          </p>
-        </div>
-      HTML
     end
 
     def format_eol_warnings(warnings)

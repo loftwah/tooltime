@@ -18,7 +18,7 @@ module Display
     end
   end
 
-  def text_output(tech_stack, lifecycle_data, npm_data, github_data, trending_data, warnings, upcoming_releases)
+  def text_output(tech_stack, lifecycle_data, npm_data, github_data, warnings, upcoming_releases)
     puts "\n=== Current Version Status ==="
     
     tech_stack.each do |category, tools|
@@ -47,10 +47,9 @@ module Display
 
     show_eol_warnings(warnings)
     show_upcoming_releases(upcoming_releases)
-    show_github_trends(trending_data, tech_stack)
   end
 
-  def generate_html(tech_stack, lifecycle_data, npm_data, github_data, trending_data, warnings, upcoming_releases)
+  def generate_html(tech_stack, lifecycle_data, npm_data, github_data, warnings, upcoming_releases)
     content = []
     
     tech_stack.each do |category, tools|
@@ -82,12 +81,10 @@ module Display
 
     content << format_warnings_html(warnings) if warnings.any?
     content << format_releases_html(upcoming_releases) if upcoming_releases.any?
-    content << format_trending_html(trending_data, tech_stack)
     
     content.join("\n")
   end
 
-  # Add these methods before the private section
   def format_lifecycle_html(tool_name, versions)
     return "" unless versions.is_a?(Array) && !versions.empty?
     
@@ -157,33 +154,6 @@ module Display
     html.join("\n")
   end
 
-  def format_trending_html(data, tech_stack)
-    return "" unless data && data['items']
-    
-    html = ["<div class='trending'>"]
-    html << "<h2>GitHub Trending Repositories</h2>"
-    html << "<p>Top repositories by language in the last 30 days:</p>"
-    
-    repos_by_language = data['items'].group_by { |repo| repo['language']&.downcase }
-    
-    tech_stack['languages'].keys.each do |language|
-      lang_repos = repos_by_language[language.downcase]
-      next if lang_repos.nil? || lang_repos.empty?
-      
-      html << "<div class='language-section'>"
-      html << "<h3>#{language.upcase}</h3>"
-      
-      lang_repos.first(5).each do |repo|
-        html << HTMLFormatter.format_trending_repo(repo)
-      end
-      
-      html << "</div>"
-    end
-    
-    html << "</div>"
-    html.join("\n")
-  end
-
   def show_lifecycle_info(tool_name, versions)
     return unless versions.is_a?(Array) && !versions.empty?
     current_versions = versions.sort_by { |v| v['releaseDate'] || '0000-00-00' }.reverse
@@ -229,35 +199,6 @@ module Display
     else
       releases.sort_by { |r| r[:days_until] }.each do |release|
         puts "#{release[:tool]} #{release[:version]}: Releasing in #{release[:days_until]} days (#{release[:release_date]})"
-      end
-    end
-  end
-
-  def show_github_trends(data, tech_stack)
-    return unless data && data['items']
-    
-    puts "\n=== GitHub Trending Repositories ==="
-    puts "Top repositories by language in the last 30 days:\n"
-    
-    repos_by_language = data['items'].group_by { |repo| repo['language']&.downcase }
-    
-    tech_stack['languages'].keys.each do |language|
-      lang_repos = repos_by_language[language.downcase]
-      next if lang_repos.nil? || lang_repos.empty?
-      
-      puts "\n#{language.upcase}"
-      puts "#{'-' * language.length}"
-      
-      lang_repos.first(5).each do |repo|
-        created_date = Date.parse(repo['created_at']).strftime('%Y-%m-%d')
-        puts "  #{repo['full_name']}"
-        puts "  ★ #{repo['stargazers_count']} | 👁️ #{repo['watchers_count']} | 🍴 #{repo['forks_count']}"
-        if repo['description']
-          puts "  #{repo['description']&.slice(0, 100)}#{repo['description']&.length.to_i > 100 ? '...' : ''}"
-        end
-        puts "  Created: #{created_date} | Language: #{repo['language']}"
-        puts "  URL: #{repo['html_url']}"
-        puts
       end
     end
   end

@@ -2,6 +2,7 @@
 
 require 'net/http'
 require 'json'
+require 'nokogiri'
 
 module DataFetcher
   module_function
@@ -28,8 +29,6 @@ module DataFetcher
   def fetch_github_data(tool_name, repo, token = nil)
     uri = URI("#{GITHUB_API_URL}/repos/#{repo}")
     request = Net::HTTP::Get.new(uri)
-    # Use GITHUB_TOKEN from Actions if available, fallback to provided token
-    token ||= ENV['GITHUB_TOKEN']
     request['Authorization'] = "Bearer #{token}" if token
     
     response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
@@ -54,29 +53,6 @@ module DataFetcher
     JSON.parse(response.body) if response.is_a?(Net::HTTPSuccess)
   rescue => e
     puts "Error fetching GitHub releases for #{repo}: #{e.message}"
-    nil
-  end
-
-  def fetch_github_trending(token = nil)
-    uri = URI("#{GITHUB_API_URL}/search/repositories")
-    params = {
-      q: 'created:>2024-01-01',
-      sort: 'stars',
-      order: 'desc',
-      per_page: 100
-    }
-    uri.query = URI.encode_www_form(params)
-    
-    request = Net::HTTP::Get.new(uri)
-    request['Authorization'] = "token #{token}" if token
-    
-    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-      http.request(request)
-    end
-    
-    JSON.parse(response.body) if response.is_a?(Net::HTTPSuccess)
-  rescue => e
-    puts "Error fetching GitHub trending data: #{e.message}"
     nil
   end
 
