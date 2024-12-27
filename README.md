@@ -28,11 +28,10 @@ Welcome to the **Tool Time End-of-Life Reporter**, a simple Ruby script for fetc
 ## Getting Started
 
 1. **Clone the Repo**
+
    ```bash
    git clone https://github.com/loftwah/tooltime.git
    ```
-
-````
 
 2. **Install Dependencies**
 
@@ -53,12 +52,12 @@ Welcome to the **Tool Time End-of-Life Reporter**, a simple Ruby script for fetc
    ruby main.rb
    ```
 
-   * By default, it’ll send the report if valid credentials are found.
+   - By default, it’ll send the report if valid credentials are found.
 
 5. **Preview or Dry-Run**
 
-   * **Preview**: `PREVIEW_ONLY='true' ruby main.rb`
-   * **Dry-Run**: `DRY_RUN='true' ruby main.rb`
+   - **Preview**: `PREVIEW_ONLY='true' ruby main.rb`
+   - **Dry-Run**: `DRY_RUN='true' ruby main.rb`
 
 ## Environment Variables
 
@@ -73,10 +72,9 @@ Welcome to the **Tool Time End-of-Life Reporter**, a simple Ruby script for fetc
 
 _It’s like adding a new speed dial to your hot rod – easy-peasy._
 
-* **Tracked Techs**: Update the `TRACKED_TECHS` array in the script.
-* **Styling**: Modify the `<style>` section within the `generate_html_report` method.
+- **Tracked Techs**: Update the `TRACKED_TECHS` array in the script.
+- **Styling**: Modify the `<style>` section within the `generate_html_report` method.
 
-- - -
+---
 
 > _Remember_, folks: software may come and go, but with the **Tool Time End-of-Life Reporter**, you’ll always know when to let out that final Tim Allen grunt. So strap on your tool belt and keep those versions updated—**“More power!”**
-````
