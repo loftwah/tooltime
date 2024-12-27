@@ -1,0 +1,37 @@
+name: Monthly Power Tool Maintenance 🛠️
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Run at midnight on the first of every month
+  workflow_dispatch:      # Allow manual triggering for more power!
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      # This ensures we can access public repositories
+      # Add more permissions if needed (like creating issues)
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: |
+          gem install nokogiri
+
+      - name: Run Tech Stack Update
+        run: ruby tooltime.rb --format html
+
+      - name: Send Email Update
+        run: ruby send_update.rb
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
