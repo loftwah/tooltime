@@ -28,4 +28,5 @@ jobs:
         RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
         SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
         RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        DRY_RUN: ${{ secrets.DRY_RUN }}
       run: ruby generate_report.rb
