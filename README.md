@@ -1,139 +1,82 @@
-# Tooltime 🔧
+# Tool Time End-of-Life Reporter
 
-*Does everybody know what time it is? TOOL TIME!*
+> "If you didn’t mark your software’s end-of-life date with more power, did it even happen?" – Tim the Toolman
 
-A power tool for tracking your tech stack's lifecycle information. More power! 🤖 
-
-[![Tool Time](https://img.shields.io/badge/More%20Power-Arr%20Arr%20Arr-blue)](https://github.com/loftwah/tooltime)
-
-## What's Tooltime? 
-
-Like Tim "The Tool Man" Taylor upgrading his hot rod, this tool helps you keep your tech stack tuned up and running smoothly. It tracks versions, lifecycle information, and sends you monthly updates about what needs attention.
-
-> "I rewired the GitHub API call. Now it has **MORE POWER!** Arr arr arr!" 🔧
+Welcome to the **Tool Time End-of-Life Reporter**, a simple Ruby script for fetching and emailing EOL data. This script helps you track the important tech tools in your belt. Think of it like the _Binford 6100_ of software version awareness – **More data! More power!**
 
 ## Features
 
-- 🛠️ Tracks versions and lifecycle information for your tech stack
-- 🔥 Monitors trending GitHub repositories
-- 📬 Sends monthly email updates (without any power tool accidents)
-- ⚠️ Warns about upcoming EOL dates (like Al warning Tim about safety)
-- 🚀 Shows latest releases and LTS versions
+1. **Improved HTML Layout**
 
-## Setup
+   - Your EOL report comes out looking _magically enhanced_, like adding a supercharger to your rundown pickup.
+   - Each product’s versions, EOL status, and whether it’s an LTS (Long-Term Support) release is cleanly presented in its own table.
 
-### Local Workshop Setup
+2. **Preview Mode**
 
-1. Clone your new power tool:
-```bash
-git clone https://github.com/loftwah/tooltime
-cd tooltime
-```
+   - Not ready to fire off the email? Set `PREVIEW_ONLY='true'` in your `.env` (or environment) to see the final HTML printed in your console.
+   - Perfect for that quick _“Measure twice, cut once”_ check before sending.
 
-2. Install the tool attachments (dependencies):
-```bash
-gem install nokogiri
-gem install dotenv
-```
+3. **Dry-Run Mode**
 
-3. Set up your workshop environment (`.env`):
-```bash
-RESEND_API_KEY=re_your_key_here
-RECIPIENT_EMAIL=your@email.com
-GITHUB_TOKEN=your_github_token  # Optional for local testing
-```
+   - If `DRY_RUN='true'`, the script prints the HTML to the console but reminds you that it’s a dry-run.
+   - Great for the days you want to _“opt out”_ of emailing your beloved teammates.
 
-### Automated Workshop (GitHub Actions)
+4. **Simple to Deploy**
+   - Just load the environment variables, install dependencies with `bundle install`, and run `ruby main.rb`.
+   - Even Al Borland couldn’t find fault with how easy it is!
 
-1. Add these secrets to your GitHub repository:
-   - `RESEND_API_KEY`: Your Resend API key (from https://resend.com)
-   - `RECIPIENT_EMAIL`: Email address for updates
+## Getting Started
 
-2. The automated workshop runs monthly, or you can trigger it manually (like Tim hitting the turbo button).
+1. **Clone the Repo**
+   ```bash
+   git clone https://github.com/loftwah/tooltime.git
+   ```
 
-## Usage
+````
 
-### Testing in Your Workshop
+2. **Install Dependencies**
 
-Basic power setting:
-```bash
-ruby tooltime.rb
-```
+   ```bash
+   bundle install
+   ```
 
-MORE POWER (HTML output):
-```bash
-ruby tooltime.rb --format html
-```
+3. **Create your `.env`**
 
-Maximum power (preview email):
-```bash
-ruby tooltime.rb --format html && ruby send_update.rb
-```
+   ```bash
+   cp .env.example .env
+   # Fill in your details like SENDER_EMAIL, RECIPIENT_EMAIL, etc.
+   ```
 
-### Tool Settings
+4. **Run the Script**
 
-- `--format html`: Generate HTML output (the deluxe model)
-- `--output filename.html`: Custom output file
+   ```bash
+   ruby main.rb
+   ```
 
-## Workshop Layout
+   * By default, it’ll send the report if valid credentials are found.
 
-```
-.
-├── .github/
-│   └── workflows/           # The automated workshop
-│       └── tech-update.yml
-├── config/
-│   └── tech_stack.rb       # Your tool collection
-├── lib/                    # The power components
-│   ├── data_fetcher.rb
-│   ├── display.rb
-│   └── html_formatter.rb
-├── .env                    # Your secret workshop upgrades
-├── .gitignore
-├── tooltime.rb            # The main power tool
-└── send_update.rb         # The notification system
-```
+5. **Preview or Dry-Run**
 
-## Email Configuration
+   * **Preview**: `PREVIEW_ONLY='true' ruby main.rb`
+   * **Dry-Run**: `DRY_RUN='true' ruby main.rb`
 
-1. Sign up at [Resend](https://resend.com) (no power tools required)
-2. Verify your domain/email
-3. Get your API key (Settings → API Keys → Create API Key)
-4. Add it to your repository secrets
+## Environment Variables
 
-## Workshop Safety (Environment Setup)
+| Variable          | Description                                | Required | Example                |
+| ----------------- | ------------------------------------------ | -------- | ---------------------- |
+| `RECIPIENT_EMAIL` | The email of the lucky EOL report receiver | Yes      | `someone@example.com`  |
+| `SENDER_EMAIL`    | The email address used to send the report  | Yes      | `reporter@example.com` |
+| `RESEND_API_KEY`  | Your Resend.com API key                    | Yes      | `abcd1234efgh5678`     |
+| `DRY_RUN`         | If `true`, prints HTML to console only     | No       | `true`                 |
 
-Create a `.env` file:
-```bash
-# Required for notifications
-RESEND_API_KEY=re_your_key_here
-RECIPIENT_EMAIL=your@email.com
+## Customising the Script
 
-# Optional for more power
-GITHUB_TOKEN=your_github_token
-```
+_It’s like adding a new speed dial to your hot rod – easy-peasy._
 
-Don't forget your safety gear (`.gitignore`):
-```
-.env
-tech_update.html
-```
+* **Tracked Techs**: Update the `TRACKED_TECHS` array in the script.
+* **Styling**: Modify the `<style>` section within the `generate_html_report` method.
 
-## Troubleshooting
+- - -
 
-1. **Rate Limiting**: Even Tim Taylor couldn't exceed GitHub's rate limits. Use a token for more power.
-2. **Email Issues**: Make sure your email is verified (don't forget to plug it in).
-3. **Missing Data**: Some tools might be hiding in the workshop. Check the APIs.
-
-## Contributing
-
-I don't think so, Tim! (Just kidding, contributions are welcome! Please submit a Pull Request.)
-
-## License
-
-MIT License - Free to modify and upgrade, just like Tim's tools!
-
----
-*Remember: Always wear safety glasses when running GitHub Actions!* 👓
-
-Built with MORE POWER by [Loftwah](https://github.com/loftwah) 🔧
+> _Remember_, folks: software may come and go, but with the **Tool Time End-of-Life Reporter**, you’ll always know when to let out that final Tim Allen grunt. So strap on your tool belt and keep those versions updated—**“More power!”**
+````
