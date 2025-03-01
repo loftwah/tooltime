@@ -1,0 +1,30 @@
+name: Keep Repository Active
+
+on:
+  schedule:
+    # Runs every day at midnight UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch: # Manual trigger option
+
+permissions:
+  contents: write # Required to make commits
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make a small change
+        run: |
+          # Update a file with the current date
+          echo "$(date -u)" > last-active.txt
+
+      - name: Commit and push
+        run: |
+          git config user.name "loftwah"
+          git config user.email "dean@deanlofts.xyz"
+          git add last-active.txt
+          git commit -m "Daily keep-alive commit"
+          git push
