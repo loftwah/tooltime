@@ -16,15 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Make a small change
-        run: |
-          # Update a file with the current date
-          echo "$(date -u)" > last-active.txt
-
-      - name: Commit and push
+      - name: Create empty commit and push
         run: |
           git config user.name "loftwah"
           git config user.email "dean@deanlofts.xyz"
-          git add last-active.txt
-          git commit -m "Daily keep-alive commit"
+          git commit --allow-empty -m "Daily keep-alive commit"
           git push
